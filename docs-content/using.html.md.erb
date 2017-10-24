@@ -1,15 +1,154 @@
 ---
-title: Using YOUR-PRODUCT-NAME
-owner: Partners
+title: Using Stark & Wayne KAFKA™ for PCF
 ---
 
-This topic describes how to use YOUR-PRODUCT-NAME.
+This page is a guided walk-thru of basic usage features:
 
-##<a id='using'></a> Using YOUR-PRODUCT-NAME
+* Deploying a sample producer and sample consumer applications to Pivotal Cloud Foundry
+* Provisioning Stark & Wayne Kafka database and binding to the two apps
+* Observing their intercommunication via Apache Kafka
+* Cleanup
 
-**This topic should include any instructions for how to use the service or dashboard created by the tile. 
-Give procedures for how to perform the different functions offered by your product and provide screenshots where necessary.** 
+## Preparation
 
-**You can also use this section to include information about Architecture and Troubleshooting for known errors. 
-If you include a Troubleshooting section, follow the Symptom/Explanation format used in the 
-[Okta Troubleshooting](http://docs.pivotal.io/p-identity/okta/troubleshooting.html) topic**.
+Create a new Pivotal Cloud Foundry space:
+
+```bash
+cf create-space kafka-tutorial
+cf t -s kafka-tutorial
+```
+
+Clone the repository containing the two sample applications:
+
+** TBD Where should the sample application be located? **
+
+```bash
+git clone https://github.com/dingotiles/dingo-kafka-sample-apps.git
+```
+
+## Discover Stark & Wayne Kafka service
+
+Confirm that Stark & Wayne Kafka has been installed by your platform operators:
+
+```bash
+$ cf marketplace
+
+service        plans   description
+sw-kafka       topic   Apache Kafka 0.10
+...
+
+$ cf marketplace -s sw-kafka
+
+service plan   description     free or paid
+topic          Share a topic   free
+```
+
+## Provision shared Apache Kafka topic
+
+```
+$ cf create-service sw-kafka topic kafka-service
+```
+
+## Deploy producer app to Pivotal Cloud Foundry
+
+To build and deploy the sample producer application, in the root directory of dingo-kafka-simple-apps git repository we downloaded above:
+
+```bash
+mvn -Dmaven.test.skip=true install
+cd kafka-sample-producer
+cf push
+```
+
+This application is a headless application - it continously pushes events to the Kafka topic.
+
+To observe it in action, watch its logs:
+
+```bash
+cf logs kafka-sample-producer
+```
+
+An example of the logs might be:
+
+```
+2017-05-15T13:07:16.88+1000 [APP/PROC/WEB/0] OUT 2017-05-15 03:07:16 [pool-1-thread-1] INFO  o.a.kafka.common.utils.AppInfoParser - Kafka version : 0.10.0.1
+2017-05-15T13:07:16.88+1000 [APP/PROC/WEB/0] OUT 2017-05-15 03:07:16 [pool-1-thread-1] INFO  o.a.kafka.common.utils.AppInfoParser - Kafka commitId : a7a17cdec9eaa6c5
+2017-05-15T13:07:26.87+1000 [APP/PROC/WEB/0] OUT 2017-05-15 03:07:26 [pool-1-thread-1] INFO  i.p.c.s.p.app.KafkaSampleProducer - sending message: the time is now 03:07:26
+2017-05-15T13:07:26.87+1000 [APP/PROC/WEB/0] OUT 2017-05-15 03:07:26 [pool-1-thread-1] INFO  o.a.k.c.producer.ProducerConfig - ProducerConfig values:
+2017-05-15T13:07:26.87+1000 [APP/PROC/WEB/0] OUT 	metric.reporters = []
+2017-05-15T13:07:26.87+1000 [APP/PROC/WEB/0] OUT 	metadata.max.age.ms = 300000
+2017-05-15T13:07:26.87+1000 [APP/PROC/WEB/0] OUT 	reconnect.backoff.ms = 50
+2017-05-15T13:07:26.87+1000 [APP/PROC/WEB/0] OUT 	sasl.kerberos.ticket.renew.window.factor = 0.8
+2017-05-15T13:07:26.87+1000 [APP/PROC/WEB/0] OUT 	bootstrap.servers = [10.244.0.148:9092, 10.244.0.149:9092, 10.244.0.155:9092]
+...
+```
+
+## Deploying consumer app
+
+Open another terminal window. We've already done a mvn install during the kafka-sample-producer phase, but if that was skipped, run `mvn -Dmaven.test.skip=true install` in the base directory of dingo-kafka-simple-apps:
+
+To build and deploy the sample consumer application:
+
+```
+cd -
+cd kafka-sample-consumer
+cf push
+```
+
+This application is a headless application - it continously pushes events to the Kafka topic.
+
+To observe it in action, watch its logs:
+
+```bash
+cf logs kafka-sample-consumer
+```
+
+An example of each message received from the `kafka-sample-producer` via Apache Kafka is:
+
+```
+2017-05-15T13:12:56.98+1000 [APP/PROC/WEB/0] OUT 2017-05-15 03:12:56 [-kafka-consumer-1] INFO  i.p.c.s.c.app.ConsumerListener - received: ConsumerRecord(topic = 23ff851e-8642-4682-839b-1d1b04125f19, partition = 1, offset = 26, CreateTime = 1494817976982, checksum = 535612902, serialized key size = -1, serialized value size = 49, key = null, value = hello from the KafkaSampleProducer: 1494817976878)
+```
+
+## Service credentials
+
+When the Stark & Wayne Kafka service instance is bound to the app, it has provided a set of connection credentials. Each application uses those credentials to connect to Apache Kafka with a Kafka client library.
+
+To see the credentials:
+
+```bash
+cf env kafka-sample-producer
+```
+
+The output will include a snippet like:
+
+```json
+{
+ "VCAP_SERVICES": {
+  "dingo-kafka": [
+   {
+    "credentials": {
+     "hostname": "10.244.0.148:9092,10.244.0.149:9092,10.244.0.155:9092",
+     "topicName": "23ff851e-8642-4682-839b-1d1b04125f19",
+     "uri": "kafka://10.244.0.148:9092,10.244.0.149:9092,10.244.0.155:9092/23ff851e-8642-4682-839b-1d1b04125f19"
+    },
+    "label": "dingo-kafka",
+    "name": "kafka-service",
+    "plan": "topic",
+    "provider": null,
+    "syslog_drain_url": null,
+    "tags": [
+     "kafka"
+    ],
+    "volume_mounts": []
+   }
+  ]
+ }
+}
+```
+
+## Cleanup
+
+```
+cf delete kafka-sample-consumer
+cf delete kafka-sample-producer
+cf delete-service kafka-service
+```

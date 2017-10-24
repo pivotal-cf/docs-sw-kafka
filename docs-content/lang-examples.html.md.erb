@@ -1,0 +1,21 @@
+---
+title: Example applications for Stark & Wayne Kafka™ for PCF
+---
+
+The community of Cloud Foundry & Kafka users have created some example applications that can bind to Stark & Wayne Kafka™  service credentials for an Apache Kafka topic.
+
+| Language | Source Code |
+| --- | --- |
+| Java/Spring | [Consumer](https://github.com/dingotiles/dingo-kafka-sample-apps/tree/master/kafka-sample-consumer) [Provider](https://github.com/dingotiles/dingo-kafka-sample-apps/tree/master/kafka-sample-producer) [Connector](https://github.com/dingotiles/dingo-kafka-sample-apps/tree/master/kafka-connector) |
+
+## Credentials
+
+The connection details are provided via `$VCAP_SERVICES` environment variable. An example of the credentials section will be:
+
+```json
+{
+ "hostname": "10.244.0.148:9092,10.244.0.149:9092,10.244.0.155:9092",
+ "topicName": "17e7faad-7f61-4baf-869d-1b72137bba98",
+ "uri": "kafka://10.244.0.148:9092,10.244.0.149:9092,10.244.0.155:9092/17e7faad-7f61-4baf-869d-1b72137bba98"
+}
+```
