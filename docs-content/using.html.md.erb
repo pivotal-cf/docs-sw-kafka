@@ -20,8 +20,6 @@ cf t -s kafka-tutorial
 
 Clone the repository containing the two sample applications:
 
-** TBD Where should the sample application be located? **
-
 ```bash
 git clone https://github.com/dingotiles/dingo-kafka-sample-apps.git
 ```
@@ -128,14 +126,14 @@ The output will include a snippet like:
 ```json
 {
  "VCAP_SERVICES": {
-  "dingo-kafka": [
+  "sw-kafka": [
    {
     "credentials": {
      "hostname": "10.244.0.148:9092,10.244.0.149:9092,10.244.0.155:9092",
      "topicName": "23ff851e-8642-4682-839b-1d1b04125f19",
      "uri": "kafka://10.244.0.148:9092,10.244.0.149:9092,10.244.0.155:9092/23ff851e-8642-4682-839b-1d1b04125f19"
     },
-    "label": "dingo-kafka",
+    "label": "sw-kafka",
     "name": "kafka-service",
     "plan": "topic",
     "provider": null,
