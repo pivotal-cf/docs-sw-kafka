@@ -2,14 +2,14 @@
 title: Using Stark & Wayne KAFKA™ for PCF
 ---
 
-This page provides a guided walk-thru ofthe following basic usage features:
+This page provides a guided walk-thru of the following basic usage features:
 
 * Deploying sample producer and sample consumer applications to Pivotal Cloud Foundry (PCF)
 * Provisioning Stark & Wayne Kafka database and binding to the two apps
 * Observing their intercommunication via Apache Kafka
 * Cleanup
 
-## Preparation
+## <a id="preparation"></a>Preparation
 
 Create a new Pivotal Cloud Foundry space:
 
@@ -26,7 +26,7 @@ Clone the repository containing the two sample applications:
 git clone https://github.com/dingotiles/dingo-kafka-sample-apps.git
 ```
 
-## Discover Stark & Wayne Kafka Service
+## <a id="discover_service"></a>Discover Stark & Wayne Kafka Service
 
 Confirm that Stark & Wayne Kafka has been installed by your platform operators:
 
@@ -43,13 +43,13 @@ service plan   description     free or paid
 topic          Share a topic   free
 ```
 
-## Provision Shared Apache Kafka Topic
+## <a id="provision_topic"></a>Provision Shared Apache Kafka Topic
 
 ```
 $ cf create-service sw-kafka topic kafka-service
 ```
 
-## Deploy Producer App to Pivotal Cloud Foundry
+## <a id="deploy_producer"></a>Deploy Producer App to Pivotal Cloud Foundry
 
 To build and deploy the sample producer application, in the root directory of 
 dingo-kafka-simple-apps git repository we downloaded above:
@@ -83,7 +83,7 @@ An example of the logs might be:
 ...
 ```
 
-## Deploying Consumer App
+##<a id="deploy_consumer"></a> Deploying Consumer App
 
 Open another terminal window. We've already done a mvn install during the 
 kafka-sample-producer phase, but if that step was skipped, run `mvn -Dmaven.test.skip=true install` 
@@ -111,7 +111,7 @@ An example of each message received from the `kafka-sample-producer` via Apache 
 2017-05-15T13:12:56.98+1000 [APP/PROC/WEB/0] OUT 2017-05-15 03:12:56 [-kafka-consumer-1] INFO  i.p.c.s.c.app.ConsumerListener - received: ConsumerRecord(topic = 23ff851e-8642-4682-839b-1d1b04125f19, partition = 1, offset = 26, CreateTime = 1494817976982, checksum = 535612902, serialized key size = -1, serialized value size = 49, key = null, value = hello from the KafkaSampleProducer: 1494817976878)
 ```
 
-## Service Credentials
+##<a id="service_credentials"></a> Service Credentials
 
 When the Stark & Wayne Kafka service instance is bound to the app, it has provided 
 a set of connection credentials. Each application uses those credentials to connect 
@@ -150,7 +150,7 @@ The output will include a snippet like:
 }
 ```
 
-## Cleanup
+## <a id="cleanup"></a> Cleanup
 
 ```
 cf delete kafka-sample-consumer
