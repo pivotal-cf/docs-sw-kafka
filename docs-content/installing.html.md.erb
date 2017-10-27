@@ -1,28 +1,57 @@
 ---
-title: Installing and Configuring YOUR-PRODUCT-NAME
+title: Installing and Configuring Stark & Wayne KAFKA™ for PCF
 owner: Partners
 ---
 
-This topic describes how to install and configure YOUR-PRODUCT-NAME.
+This topic describes how to install and configure Stark & Wayne KAFKA™ for PCF.
 
-##<a id='install'></a> Install and Configure YOUR-PRODUCT-NAME
+##<a id='install'></a> Install and Configure Stark & Wayne KAFKA™ for PCF
 
 1. Download the product file from Pivotal Network.
 
 1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file. 
 
-1. Under the **Import a Product** button, click **+** next to the version number of YOUR-PRODUCT-NAME. 
+1. Under the **Import a Product** button, click **+** next to the version number of Stark & Wayne KAFKA™ for PCF. 
 This adds the tile to your staging area.
 
-1. Click the newly added **YOUR-PRODUCT-NAME** tile.
+1. Click the newly added **Stark & Wayne KAFKA™ for PCF** tile.
 
-1. **This portion of the procedure should tell the users how to configure the newly added tile by
-walking them through the sections. Which fields should they fill out? What are the different
-checkboxes? Include relevant screenshots here.** 
+1. Choose your network under the tab "Assign AZs and Networks".
 
 1. Click **Save**.
 
-1. Return to the Ops Manager Installation Dashboard and click **Apply changes** to install YOUR-PRODUCT-NAME tile.
+1. Return to the Ops Manager Installation Dashboard and click **Apply changes** to install Stark & Wayne KAFKA™ for PCF tile.
 
-**If needed, include additional configuration information below. For example, maybe there are
-configuration options not required for installation but which could be useful for certain users.**
+## <a id="verification"></a>Verification
+
+The `sw-kafka` service should be available to all users after installation. Observe it in the marketplace:
+
+```
+cf marketplace
+```
+
+The output will look like:
+
+```
+Getting services from marketplace in org system / space sw-kafka as admin...
+OK
+
+service      plans      description
+sw-kafka     topic      Apache Kafka 0.10
+```
+
+### <a id="verification-create-service"></a>Create service
+
+To confirm that you and your users can create & delete Kafka database:
+
+```
+cf create-service sw-kafka topic test-kafka
+```
+
+### <a id="verification-delete-service"></a>Delete service
+
+To destroy the test databases:
+
+```
+cf delete-service test-kafka -f
+```
