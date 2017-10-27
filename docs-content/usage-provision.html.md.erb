@@ -1,10 +1,12 @@
 ---
-title: Provision &amp; bind new Kafka service
+title: Provision &amp; Bind New Kafka Service
 ---
 
-Stark & Wayne Kafka allows all Pivotal Cloud Foundry&reg; users to create and use Kafka within their applications. Applications can then use any Kafka library to publish/subscribe to the Kafka topic.
+Stark & Wayne Kafka allows all Pivotal Cloud Foundry&reg; users to create and use 
+Kafka within their applications. Applications can then use any Kafka library 
+to publish/subscribe to the Kafka topic.
 
-## <a id="provision"></a>Provision & bind
+## <a id="provision"></a>Provision & Bind
 
 Create a new Kafka topic using the `cf create-service` (or `cf cs` alias):
 
@@ -12,13 +14,13 @@ Create a new Kafka topic using the `cf create-service` (or `cf cs` alias):
 cf create-service sw-kafka topic myapp-kafka
 ```
 
-You can then share the Kafka topic with one or more applications within the same Cloud Foundry "space".
+You can share the Kafka topic with one or more applications within the same Cloud Foundry "space".
 
 ```
 cf bind-service myapp myapp-kafka
 ```
 
-Applications will have access to the connection information when they are next pushed, restarted or restaged.
+Applications have access to the connection information when they are next pushed, restarted, or restaged.
 
 ```
 cf restart myapp
@@ -26,9 +28,11 @@ cf restart myapp
 
 ## <a id="credentials"></a>Credentials
 
-The Kafka connection credentials are passed to your application via environment variables, specifically [`$VCAP_SERVICES`](https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES).
+The Kafka connection credentials pass
+ to your application via environment variables, specifically [`$VCAP_SERVICES`](https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES).
 
-Either use a JSON parser or find a language-specific community Cloud Foundry library to make navigating this environment variable easy.
+Either use a JSON parser or find a language-specific community Cloud Foundry 
+library to make navigating this environment variable easy.
 
 See the [Language Examples](lang-examples.html) for samples of looking up/using the credentials.
 
@@ -40,4 +44,12 @@ The `credentials` section contains the following keys:
  "topicName": "17e7faad-7f61-4baf-869d-1b72137bba98",
  "uri": "kafka://10.244.0.148:9092,10.244.0.149:9092,10.244.0.155:9092/17e7faad-7f61-4baf-869d-1b72137bba98"
 }
+```
+
+## <a id="delete"></a> Delete
+
+When you no longer want your Kafka topic, you can delete it by running the following command:
+
+```
+cf delete-service myapp-kafka
 ```
