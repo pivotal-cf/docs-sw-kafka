@@ -1,28 +1,74 @@
 ---
-title: Installing and Configuring YOUR-PRODUCT-NAME
+title: Installing and Configuring Stark & Wayne Kafka
 owner: Partners
 ---
 
-This topic describes how to install and configure YOUR-PRODUCT-NAME.
+## <a id="requirements"></a>Requirements
 
-##<a id='install'></a> Install and Configure YOUR-PRODUCT-NAME
+* Pivotal Ops Manager&reg;
+* Pivotal Cloud Foundry&reg;
+* Redis for PCF&reg;
 
-1. Download the product file from Pivotal Network.
+## <a id="redis"></a>Confirm Redis for PCF is Installed
 
-1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file. 
+On the Ops Manager dashboard confirm that Redis for PCF&reg; is already installed.
 
-1. Under the **Import a Product** button, click **+** next to the version number of YOUR-PRODUCT-NAME. 
+1. Under the **Import a Product** button, click **+** next to the version number of Stark & Wayne KAFKA™ for PCF. 
 This adds the tile to your staging area.
 
-1. Click the newly added **YOUR-PRODUCT-NAME** tile.
+1. Click the newly added **Stark & Wayne KAFKA™ for PCF** tile.
 
-1. **This portion of the procedure should tell the users how to configure the newly added tile by
-walking them through the sections. Which fields should they fill out? What are the different
-checkboxes? Include relevant screenshots here.** 
+1. Choose your network under the tab "Assign AZs and Networks".
+![redis-installed](images/preinstall-redis.png)
 
-1. Click **Save**.
+## <a id="upload-tile"></a>Upload Tile
 
-1. Return to the Ops Manager Installation Dashboard and click **Apply changes** to install YOUR-PRODUCT-NAME tile.
+See [Downloads](download.html) for instructions for downloading the latest tile.
 
-**If needed, include additional configuration information below. For example, maybe there are
-configuration options not required for installation but which could be useful for certain users.**
+Click "Import a Product" on the left hand side of your Ops Manager dashboard. Select the `sw-kafka-x.y.z.pivotal` file to upload.
+
+##<a id='install'></a> Install and Configure Stark & Wayne Kafka
+
+The "Stark & Wayne Kafka" product will appear in the "Available Products" list. Click "Add" to move it to the Installation Dashboard.
+
+The first time you upload/install the tile it will appear with a green lower border. This means it is immediately ready to be installed - there is no additional mandatory configuration that you will need to provide.
+
+Return to the Ops Manager dashboard via the "< Installation Dashboard" link at the top left.
+
+The Stark & Wayne Kafka tile is now green and is ready to be installed.
+
+Press "Apply Changes".
+
+## <a id="verification"></a>Verification
+
+The `sw-kafka` service should be available to all users after installation. Observe it in the marketplace:
+
+```
+cf marketplace
+```
+
+The output will look like:
+
+```
+Getting services from marketplace in org system / space sw-kafka as admin...
+OK
+
+service      plans      description
+sw-kafka     topic      Apache Kafka 0.10
+```
+
+### <a id="verification-create-service"></a>Create Service
+
+To confirm that you and your users can create & delete Kafka database:
+
+```
+cf create-service sw-kafka topic test-kafka
+```
+
+### <a id="verification-delete-service"></a>Delete Service
+
+To destroy the test databases:
+
+```
+cf delete-service test-kafka -f
+```

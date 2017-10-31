@@ -45,3 +45,11 @@ The `credentials` section contains the following keys:
  "uri": "kafka://10.244.0.148:9092,10.244.0.149:9092,10.244.0.155:9092/17e7faad-7f61-4baf-869d-1b72137bba98"
 }
 ```
+
+## <a id="delete"></a> Delete
+
+When you no longer want your Kafka topic, you can delete it by running the following command:
+
+```
+cf delete-service myapp-kafka
+```
