@@ -2,33 +2,36 @@
 title: Using Stark & Wayne KAFKA™ for PCF
 ---
 
-This page provides a guided walk-thru of the following basic usage features:
+This page provides a walkthrough of the following basic features:
 
 * Deploying sample producer and sample consumer applications to Pivotal Cloud Foundry (PCF)
 * Provisioning Stark & Wayne Kafka database and binding to the two apps
-* Observing their intercommunication via Apache Kafka
+* Using Apache Kafka to observe the apps' communication
 * Cleanup
 
 ## <a id="preparation"></a>Preparation
 
-Create a new Pivotal Cloud Foundry space:
-
-```bash
+<ol>
+<li>Create a new Pivotal Cloud Foundry space:
+<pre class="terminal">
+bash
 cf create-space kafka-tutorial
 cf t -s kafka-tutorial
-```
-
-Clone the repository containing the two sample applications:
-
-```bash
+</pre>
+</li>
+<li>Clone the repository containing the two sample applications:
+<pre class="terminal">
+bash
 git clone https://github.com/dingotiles/dingo-kafka-sample-apps.git
-```
-
+</pre>
+</li>
+</ol>
 ## <a id="discover_service"></a>Discover Stark & Wayne Kafka Service
 
 Confirm that Stark & Wayne Kafka has been installed by your platform operators:
 
-```bash
+<pre class="terminal">
+bash
 $ cf marketplace
 
 service        plans   description
@@ -39,36 +42,37 @@ $ cf marketplace -s sw-kafka
 
 service plan   description     free or paid
 topic          Share a topic   free
-```
+</pre>
 
 ## <a id="provision_topic"></a>Provision Shared Apache Kafka Topic
 
-```
+<pre class="terminal">
 $ cf create-service sw-kafka topic kafka-service
-```
+</pre>
 
 ## <a id="deploy_producer"></a>Deploy Producer App to Pivotal Cloud Foundry
 
 To build and deploy the sample producer application, in the root directory of 
 dingo-kafka-simple-apps git repository we downloaded above:
 
-```bash
+<pre class="terminal">
+bash
 mvn -Dmaven.test.skip=true install
 cd kafka-sample-producer
 cf push
-```
+</pre>
 
 This application is a headless application - it continously pushes events to the Kafka topic.
 
 To observe it in action, watch its logs:
 
-```bash
+<pre class="terminal">bash
 cf logs kafka-sample-producer
-```
+</pre>
 
 An example of the logs might be:
 
-```
+<pre class="terminal">
 2017-05-15T13:07:16.88+1000 [APP/PROC/WEB/0] OUT 2017-05-15 03:07:16 [pool-1-thread-1] INFO  o.a.kafka.common.utils.AppInfoParser - Kafka version : 0.10.0.1
 2017-05-15T13:07:16.88+1000 [APP/PROC/WEB/0] OUT 2017-05-15 03:07:16 [pool-1-thread-1] INFO  o.a.kafka.common.utils.AppInfoParser - Kafka commitId : a7a17cdec9eaa6c5
 2017-05-15T13:07:26.87+1000 [APP/PROC/WEB/0] OUT 2017-05-15 03:07:26 [pool-1-thread-1] INFO  i.p.c.s.p.app.KafkaSampleProducer - sending message: the time is now 03:07:26
@@ -79,7 +83,7 @@ An example of the logs might be:
 2017-05-15T13:07:26.87+1000 [APP/PROC/WEB/0] OUT 	sasl.kerberos.ticket.renew.window.factor = 0.8
 2017-05-15T13:07:26.87+1000 [APP/PROC/WEB/0] OUT 	bootstrap.servers = [10.244.0.148:9092, 10.244.0.149:9092, 10.244.0.155:9092]
 ...
-```
+</pre>
 
 ##<a id="deploy_consumer"></a> Deploying Consumer App
 
@@ -89,25 +93,26 @@ in the base directory of dingo-kafka-simple-apps:
 
 To build and deploy the sample consumer application:
 
-```
+<pre class="terminal">
 cd -
 cd kafka-sample-consumer
 cf push
-```
+</pre>
 
 This application is a headless application - it continously pushes events to the Kafka topic.
 
 To observe it in action, watch its logs:
 
-```bash
+<pre class="terminal">
+bash
 cf logs kafka-sample-consumer
-```
+</pre>
 
 An example of each message received from the `kafka-sample-producer` via Apache Kafka is:
 
-```
+<pre class="terminal">
 2017-05-15T13:12:56.98+1000 [APP/PROC/WEB/0] OUT 2017-05-15 03:12:56 [-kafka-consumer-1] INFO  i.p.c.s.c.app.ConsumerListener - received: ConsumerRecord(topic = 23ff851e-8642-4682-839b-1d1b04125f19, partition = 1, offset = 26, CreateTime = 1494817976982, checksum = 535612902, serialized key size = -1, serialized value size = 49, key = null, value = hello from the KafkaSampleProducer: 1494817976878)
-```
+</pre>
 
 ##<a id="service_credentials"></a> Service Credentials
 
@@ -117,13 +122,15 @@ to Apache Kafka with a Kafka client library.
 
 To see the credentials:
 
-```bash
+<pre class="terminal">
+bash
 cf env kafka-sample-producer
-```
+</pre>
 
 The output will include a snippet like:
 
-```json
+<pre class="terminal">
+json
 {
  "VCAP_SERVICES": {
   "sw-kafka": [
@@ -146,12 +153,12 @@ The output will include a snippet like:
   ]
  }
 }
-```
+</pre>
 
 ## <a id="cleanup"></a> Cleanup
 
-```
+<pre class="terminal">
 cf delete kafka-sample-consumer
 cf delete kafka-sample-producer
 cf delete-service kafka-service
-```
+</pre>
