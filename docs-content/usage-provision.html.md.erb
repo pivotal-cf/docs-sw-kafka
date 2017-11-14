@@ -1,30 +1,30 @@
 ---
-title: Provision &amp; Bind New Kafka Service
+title: Provision and Bind New Kafka Service
 ---
 
-Stark & Wayne Kafka allows all Pivotal Cloud Foundry&reg; users to create and use 
+Stark & Wayne Kafka allows all Pivotal Cloud Foundry users to create and use 
 Kafka within their applications. Applications can then use any Kafka library 
-to publish/subscribe to the Kafka topic.
+to publish or subscribe to the Kafka topic.
 
 ## <a id="provision"></a>Provision & Bind
 
 Create a new Kafka topic using the `cf create-service` (or `cf cs` alias):
 
-```
+<pre class="terminal">
 cf create-service sw-kafka topic myapp-kafka
-```
+</pre>
 
 You can share the Kafka topic with one or more applications within the same Cloud Foundry "space".
 
-```
+<pre class="terminal">
 cf bind-service myapp myapp-kafka
-```
+</pre>
 
 Applications have access to the connection information when they are next pushed, restarted, or restaged.
 
-```
+<pre class="terminal">
 cf restart myapp
-```
+</pre>
 
 ## <a id="credentials"></a>Credentials
 
@@ -38,18 +38,19 @@ See the [Language Examples](lang-examples.html) for samples of looking up/using 
 
 The `credentials` section contains the following keys:
 
-```json
+<pre class="terminal">
+json
 {
  "hostname": "10.244.0.148:9092,10.244.0.149:9092,10.244.0.155:9092",
  "topicName": "17e7faad-7f61-4baf-869d-1b72137bba98",
  "uri": "kafka://10.244.0.148:9092,10.244.0.149:9092,10.244.0.155:9092/17e7faad-7f61-4baf-869d-1b72137bba98"
 }
-```
+</pre>
 
 ## <a id="delete"></a> Delete
 
-When you no longer want your Kafka topic, you can delete it by running the following command:
+When you no longer want your Kafka topic, delete it with the following command:
 
-```
+<pre class="terminal">
 cf delete-service myapp-kafka
-```
+</pre>
