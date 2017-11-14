@@ -52,7 +52,7 @@ $ cf create-service sw-kafka topic kafka-service
 
 ## <a id="deploy_producer"></a>Deploy Producer App to Pivotal Cloud Foundry
 
-To build and deploy the sample producer application, in the root directory of 
+To build and deploy the sample producer application, in the root directory of
 dingo-kafka-simple-apps git repository we downloaded above:
 
 <pre class="terminal">
@@ -87,8 +87,8 @@ An example of the logs might be:
 
 ##<a id="deploy_consumer"></a> Deploying Consumer App
 
-Open another terminal window. We've already done a mvn install during the 
-kafka-sample-producer phase, but if that step was skipped, run `mvn -Dmaven.test.skip=true install` 
+Open another terminal window. We've already done a mvn install during the
+kafka-sample-producer phase, but if that step was skipped, run `mvn -Dmaven.test.skip=true install`
 in the base directory of dingo-kafka-simple-apps:
 
 To build and deploy the sample consumer application:
@@ -116,8 +116,8 @@ An example of each message received from the `kafka-sample-producer` via Apache 
 
 ##<a id="service_credentials"></a> Service Credentials
 
-When the Stark & Wayne Kafka service instance is bound to the app, it has provided 
-a set of connection credentials. Each application uses those credentials to connect 
+When the Stark & Wayne Kafka service instance is bound to the app, it has provided
+a set of connection credentials. Each application uses those credentials to connect
 to Apache Kafka with a Kafka client library.
 
 To see the credentials:
@@ -136,9 +136,10 @@ json
   "sw-kafka": [
    {
     "credentials": {
-     "hostname": "10.244.0.148:9092,10.244.0.149:9092,10.244.0.155:9092",
-     "topicName": "23ff851e-8642-4682-839b-1d1b04125f19",
-     "uri": "kafka://10.244.0.148:9092,10.244.0.149:9092,10.244.0.155:9092/23ff851e-8642-4682-839b-1d1b04125f19"
+      "hostname": "10.213.10.35:9092,10.213.10.36:9092,10.213.10.34:9092",
+      "topicName": "67f85c81-ee6f-4791-b169-864f2e18d929",
+      "uri": "kafka://10.213.10.35:9092,10.213.10.36:9092,10.213.10.34:9092/67f85c81-ee6f-4791-b169-864f2e18d929",
+      "zkPeers": "10.213.10.31:2181,10.213.10.32:2181,10.213.10.33:2181"
     },
     "label": "sw-kafka",
     "name": "kafka-service",
