@@ -30,7 +30,7 @@ These are release notes for Stark & Wayne KAFKA™ for PCF.
     cf delete-service redis-for-kafka
     ```
 
-* Service broker no longer requires Redis, nor the Pivotal Redis tile, as a dependency. It uses the existing ZooKeeper cluster for its state about service instances and their Kafka topics.
+* Service broker no longer requires Redis, nor the Pivotal Redis for PCF tile, as a dependency. It uses the existing ZooKeeper cluster for its state about service instances and their Kafka topics.
 * Several BOSH instance groups are using `bpm` ([BOSH process manager](https://github.com/cloudfoundry-incubator/bpm-release/)) to containerize and run their processes.
 
 ##<a id="ver-0-7-3"></a> v0.7.3
