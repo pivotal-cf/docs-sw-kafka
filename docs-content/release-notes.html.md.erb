@@ -6,9 +6,9 @@ owner: Partners
 
 These are release notes for Stark & Wayne KAFKA™ for PCF.
 
-##<a id="ver-0-8-0"></a> v0.8.0
+##<a id="ver-0-8-1"></a> v0.8.1
 
-**Release Date:** November 15, 2017
+**Release Date:** November 16, 2017
 
 * Includes Apache Kafka v1.0.0
 * Some Kafka client libraries prefer to look up Kafka via ZooKeeper, so all new service bindings will now include `zkPeers` as a comma-separated list of ZooKeeper peers. An example of service binding credentials is:
@@ -22,6 +22,8 @@ These are release notes for Stark & Wayne KAFKA™ for PCF.
     }
     ```
 
+* New service plan `shared` for advanced users, such as Spring Cloud DataFlow, who will dynamically create topics and have their own system for sharing the topic names with producers/consumers.
+
 * Service broker is now run by BOSH as an instance group `kafka-service-broker`, and no longer run as an Pivotal Cloud Foundry application. **After upgrading to v0.8.0** you can subsequently delete the old `starkandwayne-kafka-broker` application:
 
     ```
@@ -32,6 +34,7 @@ These are release notes for Stark & Wayne KAFKA™ for PCF.
 
 * Service broker no longer requires Redis, nor the Pivotal Redis for PCF tile, as a dependency. It uses the existing ZooKeeper cluster for its state about service instances and their Kafka topics.
 * Several BOSH instance groups are using `bpm` ([BOSH process manager](https://github.com/cloudfoundry-incubator/bpm-release/)) to containerize and run their processes.
+* Various improvements to the catalog when viewed within your Pivotal Apps Manager
 
 ##<a id="ver-0-7-3"></a> v0.7.3
 

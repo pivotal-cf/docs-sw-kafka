@@ -34,20 +34,15 @@ Confirm that Stark & Wayne Kafka has been installed by your platform operators:
 bash
 $ cf marketplace
 
-service        plans   description
-sw-kafka       topic   Apache Kafka 0.10
-...
-
-$ cf marketplace -s sw-kafka
-
-service plan   description     free or paid
-topic          Share a topic   free
+service                 plans      description
+starkandwayne-kafka     topic      Share a single topic on shared Kafka
+                        shared     Create your own topics on shared Kafka
 </pre>
 
 ## <a id="provision_topic"></a>Provision Shared Apache Kafka Topic
 
 <pre class="terminal">
-$ cf create-service sw-kafka topic kafka-service
+$ cf create-service starkandwayne-kafka topic kafka-service
 </pre>
 
 ## <a id="deploy_producer"></a>Deploy Producer App to Pivotal Cloud Foundry
@@ -133,7 +128,7 @@ The output will include a snippet like:
 json
 {
  "VCAP_SERVICES": {
-  "sw-kafka": [
+  "starkandwayne-kafka": [
    {
     "credentials": {
       "hostname": "10.213.10.35:9092,10.213.10.36:9092,10.213.10.34:9092",

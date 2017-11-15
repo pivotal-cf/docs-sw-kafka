@@ -35,7 +35,7 @@ On the Ops Manager dashboard, confirm that Redis for PCF is already installed.
 
 ## <a id="verification"></a>Verification
 
-The `sw-kafka` service should be available to all users after installation. Observe it in the marketplace:
+The `starkandwayne-kafka` service should be available to all users after installation. Observe it in the marketplace:
 
 <pre class="terminal">
 cf marketplace
@@ -47,8 +47,9 @@ The output will look like:
 Getting services from marketplace in org system / space sw-kafka as admin...
 OK
 
-service      plans      description
-sw-kafka     topic      Apache Kafka 0.10
+service                 plans      description
+starkandwayne-kafka     topic      Share a single topic on shared Kafka
+                        shared     Create your own topics on shared Kafka
 </pre>
 
 ### <a id="verification-create-service"></a>Create Service

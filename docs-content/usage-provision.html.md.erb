@@ -2,15 +2,20 @@
 title: Provision and Bind New Kafka Service
 ---
 
-<<<<<<< HEAD
 Stark & Wayne Kafka allows all Pivotal Cloud Foundry users to create and use
 Kafka within their applications. Applications can then use any Kafka library
 to publish or subscribe to the Kafka topic.
-=======
-Stark & Wayne Kafka allows all Pivotal Cloud Foundry&reg; users to create and use
-Kafka within their applications. Applications can then use any Kafka library
-to publish/subscribe to the Kafka topic.
->>>>>>> returning 'uri' to credentials
+
+## <a id="available-plans"></a>Available service plans
+
+The Stark & Wayne Kafka tile provides two service plans:
+
+* `topic` plan
+* `shared` plan
+
+Both give access to a shared Apache Kafka/ZooKeeper cluster. The former pre-creates a topic that all bound applications can discover (via the `topicName` credential) and begin using.
+
+The latter assumes that the bound applications will create their own topics and have their own method for sharing which topics each application will use. This is an advanced case used by Spring Cloud DataFlow.
 
 ## <a id="provision"></a>Provision & Bind
 
