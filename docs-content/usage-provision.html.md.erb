@@ -2,9 +2,20 @@
 title: Provision and Bind New Kafka Service
 ---
 
-Stark & Wayne Kafka allows all Pivotal Cloud Foundry users to create and use 
-Kafka within their applications. Applications can then use any Kafka library 
+Stark & Wayne Kafka allows all Pivotal Cloud Foundry users to create and use
+Kafka within their applications. Applications can then use any Kafka library
 to publish or subscribe to the Kafka topic.
+
+## <a id="available-plans"></a>Available service plans
+
+The Stark & Wayne Kafka tile provides two service plans:
+
+* `topic` plan
+* `shared` plan
+
+Both give access to a shared Apache Kafka/ZooKeeper cluster. The former pre-creates a topic that all bound applications can discover (via the `topicName` credential) and begin using.
+
+The latter assumes that the bound applications will create their own topics and have their own method for sharing which topics each application will use. This is an advanced case used by Spring Cloud DataFlow.
 
 ## <a id="provision"></a>Provision & Bind
 
@@ -31,7 +42,7 @@ cf restart myapp
 The Kafka connection credentials pass
  to your application via environment variables, specifically [`$VCAP_SERVICES`](https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES).
 
-Either use a JSON parser or find a language-specific community Cloud Foundry 
+Either use a JSON parser or find a language-specific community Cloud Foundry
 library to make navigating this environment variable easy.
 
 See the [Language Examples](lang-examples.html) for samples of looking up/using the credentials.
@@ -41,9 +52,10 @@ The `credentials` section contains the following keys:
 <pre class="terminal">
 json
 {
- "hostname": "10.244.0.148:9092,10.244.0.149:9092,10.244.0.155:9092",
- "topicName": "17e7faad-7f61-4baf-869d-1b72137bba98",
- "uri": "kafka://10.244.0.148:9092,10.244.0.149:9092,10.244.0.155:9092/17e7faad-7f61-4baf-869d-1b72137bba98"
+  "hostname": "10.213.10.35:9092,10.213.10.36:9092,10.213.10.34:9092",
+  "topicName": "67f85c81-ee6f-4791-b169-864f2e18d929",
+  "uri": "kafka://10.213.10.35:9092,10.213.10.36:9092,10.213.10.34:9092/67f85c81-ee6f-4791-b169-864f2e18d929",
+  "zkPeers": "10.213.10.31:2181,10.213.10.32:2181,10.213.10.33:2181"
 }
 </pre>
 

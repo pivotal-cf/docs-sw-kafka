@@ -21,21 +21,21 @@ On the Ops Manager dashboard, confirm that Redis for PCF is already installed.
 
 ## <a id="upload-tile"></a>Upload Tile
 
-1. Download the product tile from the [Pivotal Network](https://network.pivotal.io). 
+1. Download the product tile from the [Pivotal Network](https://network.pivotal.io).
 1. Navigate to the dashboard of Ops Manager.
-1. Click **Import a Product**.  
+1. Click **Import a Product**.
 1. Select the `sw-kafka-X.Y.Z.pivotal` file to upload.
 
 ##<a id='install'></a> Install and Configure Stark & Wayne Kafka
 
-1. The "Stark & Wayne Kafka" product appears in the "Available Products" list. 
+1. The "Stark & Wayne Kafka" product appears in the "Available Products" list.
 1. Click **Add** to move it to the Installation Dashboard. The first time you upload/install the tile, it will appear with a green lower border. This means it is ready to be installed; there is no additional mandatory configuration that you will need to provide.
 1. Return to the Ops Manager dashboard via the "< Installation Dashboard" link at the top left. The Stark & Wayne Kafka tile is now ready to be installed.
 1. Click **Apply Changes**.
 
 ## <a id="verification"></a>Verification
 
-The `sw-kafka` service should be available to all users after installation. Observe it in the marketplace:
+The `starkandwayne-kafka` service should be available to all users after installation. Observe it in the marketplace:
 
 <pre class="terminal">
 cf marketplace
@@ -47,8 +47,9 @@ The output will look like:
 Getting services from marketplace in org system / space sw-kafka as admin...
 OK
 
-service      plans      description
-sw-kafka     topic      Apache Kafka 0.10
+service                 plans      description
+starkandwayne-kafka     topic      Share a single topic on shared Kafka
+                        shared     Create your own topics on shared Kafka
 </pre>
 
 ### <a id="verification-create-service"></a>Create Service
