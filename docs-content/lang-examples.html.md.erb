@@ -2,7 +2,7 @@
 title: Example Applications for Stark & Wayne Kafka™ for PCF
 ---
 
-The community of Cloud Foundry and Kafka users have created some example applications 
+The community of Cloud Foundry & Kafka users have created some example applications
 that can bind to Stark & Wayne Kafka™  service credentials for an Apache Kafka topic.
 
 <table>
@@ -22,13 +22,34 @@ that can bind to Stark & Wayne Kafka™  service credentials for an Apache Kafka
 
 ## Credentials
 
-The connection details are provided via `$VCAP_SERVICES` environment variable. An example of the credentials section will be:
+The connection details are provided via `$VCAP_SERVICES` environment variable.
+
+### Topic plan
+
+For the `topic` service plan, an example of the credentials section will be:
 
 <pre class="terminal">
 json
 {
- "hostname": "10.244.0.148:9092,10.244.0.149:9092,10.244.0.155:9092",
- "topicName": "17e7faad-7f61-4baf-869d-1b72137bba98",
- "uri": "kafka://10.244.0.148:9092,10.244.0.149:9092,10.244.0.155:9092/17e7faad-7f61-4baf-869d-1b72137bba98"
+	"zkPeers": "10.213.10.31:2181,10.213.10.32:2181,10.213.10.33:2181",
+  "hostname": "10.213.10.35:9092,10.213.10.36:9092,10.213.10.34:9092",
+  "topicName": "67f85c81-ee6f-4791-b169-864f2e18d929",
+  "uri": "kafka://10.213.10.35:9092,10.213.10.36:9092,10.213.10.34:9092/67f85c81-ee6f-4791-b169-864f2e18d929"
 }
 </pre>
+
+### Shared plan
+
+For the `shared` service plan, an example of the credentials section will be:
+
+<pre class="terminal">
+json
+{
+	"zkPeers": "10.213.10.31:2181,10.213.10.32:2181,10.213.10.33:2181",
+  "hostname": "10.213.10.35:9092,10.213.10.36:9092,10.213.10.34:9092",
+  "topicNamePrefix": "67f85c81-ee6f-4791-b169-864f2e18d929",
+  "uri": "kafka://10.213.10.35:9092,10.213.10.36:9092,10.213.10.34:9092"
+}
+</pre>
+
+When using the `shared` plan, please create Kafka Topics using the `topicNamePrefix` as the prefix for all your topic names. This will allow `cf delete-service` to find and delete all the topics your have created.
