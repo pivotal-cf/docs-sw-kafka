@@ -15,8 +15,8 @@ On the Ops Manager dashboard, confirm that Redis for PCF is already installed.
 
 ![redis-installed](images/preinstall-redis.png)
 
-1. Under the **Import a Product** button, click **+** next to the version number of Stark & Wayne KAFKA™ for PCF. This adds the tile to your staging area.
-1. Click the **Stark & Wayne KAFKA™ for PCF** tile.
+1. Under the **Import a Product** button, click **+** next to the version number of Stark & Wayne Kafka™ for PCF. This adds the tile to your staging area.
+1. Click the **Stark & Wayne Kafka™ for PCF** tile.
 1. Choose your network under the tab "Assign AZs and Networks".
 
 ## <a id="upload-tile"></a>Upload Tile
@@ -57,7 +57,7 @@ starkandwayne-kafka     topic      Share a single topic on shared Kafka
 To confirm that you and your users can create & delete Kafka database:
 
 <pre class="terminal">
-cf create-service sw-kafka topic test-kafka
+cf create-service starkandwayne-kafka topic test-kafka
 </pre>
 
 ### <a id="verification-delete-service"></a>Delete Service
