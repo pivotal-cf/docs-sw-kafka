@@ -1,5 +1,5 @@
 ---
-title: Installing and Configuring Stark & Wayne Kafka
+title: Installing and Configuring Stark & Wayne kStreams
 owner: Partners
 ---
 
@@ -15,8 +15,8 @@ On the Ops Manager dashboard, confirm that Redis for PCF is already installed.
 
 ![redis-installed](images/preinstall-redis.png)
 
-1. Under the **Import a Product** button, click **+** next to the version number of Stark & Wayne Kafka™ for PCF. This adds the tile to your staging area.
-1. Click the **Stark & Wayne Kafka™ for PCF** tile.
+1. Under the **Import a Product** button, click **+** next to the version number of Stark & Wayne kStreams™ for PCF. This adds the tile to your staging area.
+1. Click the **Stark & Wayne kStreams™ for PCF** tile.
 1. Choose your network under the tab "Assign AZs and Networks".
 
 ## <a id="upload-tile"></a>Upload Tile
@@ -26,16 +26,16 @@ On the Ops Manager dashboard, confirm that Redis for PCF is already installed.
 1. Click **Import a Product**.
 1. Select the `sw-kafka-X.Y.Z.pivotal` file to upload.
 
-##<a id='install'></a> Install and Configure Stark & Wayne Kafka
+##<a id='install'></a> Install and Configure Stark & Wayne kStreams
 
-1. The "Stark & Wayne Kafka" product appears in the "Available Products" list.
+1. The "Stark & Wayne kStreams" product appears in the "Available Products" list.
 1. Click **Add** to move it to the Installation Dashboard. The first time you upload/install the tile, it will appear with a green lower border. This means it is ready to be installed; there is no additional mandatory configuration that you will need to provide.
-1. Return to the Ops Manager dashboard via the "< Installation Dashboard" link at the top left. The Stark & Wayne Kafka tile is now ready to be installed.
+1. Return to the Ops Manager dashboard via the "< Installation Dashboard" link at the top left. The Stark & Wayne kStreams tile is now ready to be installed.
 1. Click **Apply Changes**.
 
 ## <a id="verification"></a>Verification
 
-The `starkandwayne-kafka` service should be available to all users after installation. Observe it in the marketplace:
+The `starkandwayne-kstreams` service should be available to all users after installation. Observe it in the marketplace:
 
 <pre class="terminal">
 cf marketplace
@@ -48,7 +48,7 @@ Getting services from marketplace in org system / space sw-kafka as admin...
 OK
 
 service                 plans      description
-starkandwayne-kafka     topic      Share a single topic on shared Kafka
+starkandwayne-kstreams     topic      Share a single topic on shared Kafka
                         shared     Create your own topics on shared Kafka
 </pre>
 
@@ -57,7 +57,7 @@ starkandwayne-kafka     topic      Share a single topic on shared Kafka
 To confirm that you and your users can create & delete Kafka database:
 
 <pre class="terminal">
-cf create-service starkandwayne-kafka topic test-kafka
+cf create-service starkandwayne-kstreams topic test-kafka
 </pre>
 
 ### <a id="verification-delete-service"></a>Delete Service

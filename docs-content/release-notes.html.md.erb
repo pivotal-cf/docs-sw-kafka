@@ -1,10 +1,10 @@
 
 ---
-title: Release Notes for Stark & Wayne Kafka™ for PCF
+title: Release Notes for Stark & Wayne kStreams™ for PCF
 owner: Partners
 ---
 
-These are release notes for Stark & Wayne Kafka™ for PCF.
+These are release notes for Stark & Wayne kStreams™ for PCF.
 
 ##<a id="ver-0-8-1"></a> v0.8.1
 
@@ -25,11 +25,11 @@ These are release notes for Stark & Wayne Kafka™ for PCF.
 
 * New service plan `shared` for advanced users, such as Spring Cloud DataFlow, who will dynamically create topics and have their own system for sharing the topic names with producers/consumers.
 
-* Service broker is now run by BOSH as an instance group `kafka-service-broker`, and no longer run as an Pivotal Cloud Foundry application. **After upgrading to v0.8.0** you can subsequently delete the old `starkandwayne-kafka-broker` application:
+* Service broker is now run by BOSH as an instance group `kafka-service-broker`, and no longer run as an Pivotal Cloud Foundry application. **After upgrading to v0.8.0** you can subsequently delete the old `starkandwayne-kstreams-broker` application:
 
     ```
-    cf target -o system -s starkandwayne-kafka
-    cf delete starkandwayne-kafka-broker
+    cf target -o system -s starkandwayne-kstreams
+    cf delete starkandwayne-kstreams-broker
     cf delete-service redis-for-kafka
     ```
 
