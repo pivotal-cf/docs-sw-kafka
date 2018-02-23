@@ -2,13 +2,13 @@
 title: Provision and Bind New Kafka Service
 ---
 
-Stark & Wayne Kafka allows all Pivotal Cloud Foundry users to create and use
+Stark & Wayne kStreams allows all Pivotal Cloud Foundry users to create and use
 Kafka within their applications. Applications can then use any Kafka library
 to publish or subscribe to the Kafka topic.
 
 ## <a id="available-plans"></a>Available Service Plans
 
-The Stark & Wayne Kafka tile provides two service plans:
+The Stark & Wayne kStreams tile provides two service plans:
 
 * `topic` plan
 * `shared` plan
@@ -22,7 +22,7 @@ The latter assumes that the bound applications will create their own topics and 
 Create a new Kafka topic using the `cf create-service` (or `cf cs` alias):
 
 <pre class="terminal">
-cf create-service starkandwayne-kafka topic myapp-kafka
+cf create-service starkandwayne-kstreams topic myapp-kafka
 </pre>
 
 You can share the Kafka topic with one or more applications within the same Cloud Foundry "space".
